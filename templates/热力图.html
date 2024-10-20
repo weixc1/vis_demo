@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>热力图</title>
+		<script src="../static/echarts.min.js"></script>
+        <script src="../static/jquery.min.js"></script>
+	</head>
+	<body>
+		<div id="chart" style="width: 500px;height:700px;"></div>
+		<script>
+			let chart = echarts.init(document.getElementById('chart'));
+
+            $.ajax({
+                url: '/place', // 不写默认往当前的地址提交
+                type: 'get', //传输据的方式
+                success: function (data) {
+                    {#console.log(data)#}
+                    province = data['province']
+                    data1 = []
+                    data2 = []
+                    console.log(data2)
+                    console.log(province)
+                    for (var j = 1; j <= 12; j++) {
+                        data2.push(j)
+                        for (var i = 0; i < 34; i++) {
+                            data1.push([j - 1, i, data['' + j][i]])
+                        }
+                    }
+
+
+                    option = {
+                        tooltip: {
+                            formatter: function (params){
+                                return province[params.data[1]] + (params.data[0]+1) + '月<br/>重污染数量：' + params.data[2];
+                            }
+                        },
+                        animation: false,
+                        grid: {
+                            top: '2%'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: data2,
+                            splitArea: {
+                                show: true
+                            },
+                            axisTick: {
+                                lineStyle: {
+                                    color: '#c4c4c4'
+                                }
+                            }
+                        },
+                        yAxis: {
+                            type: 'category',
+                            data: province,
+                            splitArea: {
+                                show: true
+                            },
+                            axisTick: {
+                                show: false
+                            }
+                        },
+                        visualMap: {
+                            min: 0,
+                            max: 70,
+                            calculable: true,
+                            orient: 'horizontal',
+                            left: 'center',
+                            show: false,
+                            bottom: '5%',
+                            inRange: {
+                                color: ['#edfbfb', '#b7d7e8', '#69a1d4', '#277ace', '#003187']
+                            }
+                        },
+                        series: [{
+                            name: '',
+                            type: 'heatmap',
+                            data: data1,
+                            label: {
+                                show: true
+                            },
+                            emphasis: {
+                                itemStyle: {
+                                    shadowBlur: 10,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }]
+                    };
+
+                    chart.setOption(option);
+                }
+            })
+
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'index.css'%}">
+    <script src="{% static 'index.js'%}"></script>
+    <script src="{% static 'echarts.min.js'%}"></script>
+    <script src="{% static 'china.js'%}"></script>
+    <script src="{% static 'jquery.min.js'%}"></script>
+</head>
+
+<body>
+    <div class="ss"></div>
+    <div class="top"><b>大气污染实时分析</b></div>
+    <div class="content">
+        <div class="contentLeft">
+        </div>
+        <div class="conentRight">
+            <div class="box1"></div>
+            <div class="box2"></div>
+            <div class="box3">
+                <div id="pie-chart"></div>
+                <div id="stacked-chart"></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer"></div>
+
+</body>
+
+
+</html>
